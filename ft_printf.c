@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 16:44:53 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/25 11:30:29 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/25 11:54:10 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@ void	printf_options(char *s, int *len, va_list args)
 		*len += ft_printstr(va_arg(args, char *));
 	if (ft_strncmp(s, "d", 1) == 0 || ft_strncmp(s, "i", 1) == 0)
 		*len += ft_printnbr(va_arg(args, int));
+	if (ft_strncmp(s, "x", 1) == 0)
+		*len += ft_printhex(va_arg(args, unsigned int), 0);
+	if (ft_strncmp(s, "X", 1) == 0)
+		*len += ft_printhex(va_arg(args, unsigned int), 1);
 }
 
 int	ft_printf(const char *s, ...)
