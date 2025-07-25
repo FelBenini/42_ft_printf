@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 11:17:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/25 11:54:51 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/25 12:14:42 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_printnbr(int n)
 	return (len);
 }
 
-int	ft_printhex(unsigned int n, int is_upper)
+int	ft_printhex(unsigned long long n, int is_upper)
 {
 	int		len;
 	char	*digits;
