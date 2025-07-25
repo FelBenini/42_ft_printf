@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 11:17:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/25 12:14:42 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/25 12:31:33 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,17 @@ int	ft_printhex(unsigned long long n, int is_upper)
 	if (n >= 16)
 		len += ft_printhex(n / 16, is_upper);
 	len += ft_printchar(digits[n % 16]);
+	return (len);
+}
+
+int	ft_printunsigned(unsigned int n)
+{
+	char	*s;
+	int		len;
+
+	s = ft_utoa(n);
+	len = ft_strlen(s);
+	ft_printstr(s);
+	free(s);
 	return (len);
 }
