@@ -6,13 +6,13 @@
 #    By: fbenini- <your@mail.com>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:03:00 by fbenini-          #+#    #+#              #
-#    Updated: 2025/07/25 11:20:30 by fbenini-         ###   ########.fr        #
+#    Updated: 2025/07/26 18:06:42 by fbenini-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c ft_printf_utils.c
+SRCS = ft_printf.c ft_printf_utils.c ft_parse_special.c ft_special_flags.c
 
 LIBFT_DIR = ./libft
 
@@ -36,12 +36,13 @@ clean:
 	rm -rf $(OBJS)
 
 fclean: clean
+	find . -type f | xargs touch
 	@$(MAKE) fclean -C $(LIBFT_DIR)
 	rm -rf $(NAME)
 
 re: fclean
 	$(NAME)
 
-bonus:
+bonus: $(NAME)
 
 .PHONY: all re fclean clean bonus

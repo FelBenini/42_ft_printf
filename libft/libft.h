@@ -6,7 +6,7 @@
 /*   By: fbenini- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 18:11:25 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/25 12:30:00 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/26 18:24:54 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 char	*ft_utoa(unsigned int n);
+int		ft_intlen(unsigned int n);
+void	ft_strrev(char *str);
 
 #endif
