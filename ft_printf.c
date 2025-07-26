@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/24 16:44:53 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/26 18:37:18 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:15:49 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,4 @@ int	ft_printf(const char *s, ...)
 	}
 	va_end(args);
 	return (len);
-}
-
-int	main(void)
-{
-	ft_printf("%0712d", 15);
 }

@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 11:17:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/26 18:31:26 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/26 19:15:03 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	ft_printnbr(int n, t_special_flags *flags)
 		len += write(1, "-", 1);
 		nb *= -1;
 	}
+	if (flags->signal && n >= 0)
+		len += write(1, "+", 1);
 	s = ft_utoa(nb);
 	len += ft_strlen(s);
 	print_zeros(&len, flags);
@@ -92,6 +94,8 @@ int	ft_printunsigned(unsigned int n, t_special_flags *flags)
 
 	s = ft_utoa(n);
 	len = ft_strlen(s);
+	if (flags->signal)
+		len += write(1, "+", 1);
 	print_zeros(&len, flags);
 	ft_printstr(s);
 	free(s);
