@@ -21,6 +21,7 @@ typedef struct s_special_flags
 	int	zeros;
 	int	signal;
 	int	right;
+	int	sharp;
 }	t_special_flags;
 
 int				ft_printf(const char *s, ...);
@@ -33,5 +34,6 @@ int				ft_printunsigned(unsigned int n, t_special_flags *flags);
 t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i);
 void			print_zeros(int	*len, t_special_flags *flags);
 void			print_blanks(int *len, t_special_flags *flags);
+void			print_sharp(int *len, t_special_flags *flags, int is_upper);
 
 #endif

@@ -49,6 +49,20 @@ static void	ft_parse_right(t_special_flags **flags, char **s_ptr, int *i)
 	}
 }
 
+static void	ft_parse_sharp(t_special_flags **flags, char **s_ptr, int *i)
+{
+	char	*s;
+
+	s = *s_ptr;
+	(*flags)->sharp = 0;
+	if (ft_strncmp(s, "#", 1) == 0)
+	{
+		(*flags)->sharp = 1;
+		*i = *i + 1;
+		*s_ptr += 1;
+	}
+}
+
 t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i)
 {
 	t_special_flags	*flags;
@@ -60,6 +74,7 @@ t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i)
 	j = 0;
 	flags->zeros = 0;
 	ft_parse_signal(&flags, s_ptr, i);
+	ft_parse_sharp(&flags, s_ptr, i);
 	s = *s_ptr;
 	if (ft_strncmp(s, "0", 1) == 0)
 	{

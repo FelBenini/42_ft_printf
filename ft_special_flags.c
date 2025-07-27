@@ -26,3 +26,14 @@ void	print_blanks(int *len, t_special_flags *flags)
 	while (*len < flags->right)
 		*len += write(1, " ", 1);
 }
+
+void	print_sharp(int *len, t_special_flags *flags, int is_upper)
+{
+	if (flags->sharp)
+	{
+		if (is_upper)
+			*len += write(1, "0X", 2);
+		else
+			*len += write(1, "0x", 2);
+	}
+}

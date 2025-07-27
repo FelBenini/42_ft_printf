@@ -46,27 +46,27 @@ int	ft_printnbr(int n, t_special_flags *flags)
 {
 	int			len;
 	long int	nb;
-	int			isneg;
+	int			issig;
 	char		*s;
 
 	len = 0;
 	nb = n;
-	isneg = 0;
+	issig = 0;
 	if (nb < 0)
 	{
-		isneg = write(1, "-", 1);
+		issig = write(1, "-", 1);
 		nb *= -1;
 		flags->right -= 1;
 	}
 	if (flags->signal && n >= 0)
-		len += write(1, "+", 1);
+		issig = write(1, "+", 1);
 	s = ft_utoa(nb);
-	len += ft_strlen(s) + isneg;
+	len += ft_strlen(s) + issig;
 	print_zeros(&len, flags);
 	if (flags->zeros >= len)
 		len = ft_printstr(s, flags) + flags->zeros - ft_strlen(s);
 	else
-		len = ft_printstr(s, flags) + isneg;
+		len = ft_printstr(s, flags) + issig;
 	free(s);
 	return (len);
 }
@@ -84,6 +84,8 @@ int	ft_printhex(unsigned long long n, int is_upper,
 		digits = "0123456789ABCDEF";
 	if (n == 0)
 		len += ft_printchar('0', flags);
+	else
+		print_sharp(&len, flags, is_upper);
 	while (n > 0)
 	{
 		res[i++] = digits[n % 16];
@@ -102,16 +104,18 @@ int	ft_printunsigned(unsigned int n, t_special_flags *flags)
 {
 	char	*s;
 	int		len;
+	int		issig;
 
 	s = ft_utoa(n);
 	len = ft_strlen(s);
+	issig = 0;
 	if (flags->signal)
-		len += write(1, "+", 1);
+		issig = write(1, "+", 1);
 	print_zeros(&len, flags);
 	if (flags->zeros >= len)
 		len = ft_printstr(s, flags) + flags->zeros - ft_strlen(s);
 	else
 		len = ft_printstr(s, flags);
 	free(s);
-	return (len);
+	return (len + issig);
 }
