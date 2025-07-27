@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft/libft.h"
 
-int	ft_printstr(char *str)
+int	ft_printstr(char *str, t_special_flags *flags)
 {
 	int	i;
 
@@ -28,42 +28,52 @@ int	ft_printstr(char *str)
 		write(1, &str[i], 1);
 		i++;
 	}
+	print_blanks(&i, flags);
 	return (i);
 }
 
-int	ft_printchar(char c)
+int	ft_printchar(char c, t_special_flags *flags)
 {
-	write(1, &c, 1);
-	return (1);
+	int	len;
+
+	len = 0;
+	len += write(1, &c, 1);
+	print_blanks(&len, flags);
+	return (len);
 }
 
 int	ft_printnbr(int n, t_special_flags *flags)
 {
 	int			len;
 	long int	nb;
+	int			isneg;
 	char		*s;
 
 	len = 0;
 	nb = n;
+	isneg = 0;
 	if (nb < 0)
 	{
-		len += write(1, "-", 1);
+		isneg = write(1, "-", 1);
 		nb *= -1;
+		flags->right -= 1;
 	}
 	if (flags->signal && n >= 0)
 		len += write(1, "+", 1);
 	s = ft_utoa(nb);
-	len += ft_strlen(s);
+	len += ft_strlen(s) + isneg;
 	print_zeros(&len, flags);
-	ft_printstr(s);
-	print_blanks(&len, flags);
+	if (flags->zeros >= len)
+		len = ft_printstr(s, flags) + flags->zeros - ft_strlen(s);
+	else
+		len = ft_printstr(s, flags) + isneg;
 	free(s);
 	return (len);
 }
 
-int	ft_printhex(unsigned long long n, int is_upper, t_special_flags *flags)
+int	ft_printhex(unsigned long long n, int is_upper,
+				t_special_flags *flags, int len)
 {
-	int		len;
 	char	*digits;
 	char	res[20];
 	int		i;
@@ -72,9 +82,8 @@ int	ft_printhex(unsigned long long n, int is_upper, t_special_flags *flags)
 	digits = "0123456789abcdef";
 	if (is_upper)
 		digits = "0123456789ABCDEF";
-	len = 0;
 	if (n == 0)
-		len += ft_printchar('0');
+		len += ft_printchar('0', flags);
 	while (n > 0)
 	{
 		res[i++] = digits[n % 16];
@@ -84,7 +93,8 @@ int	ft_printhex(unsigned long long n, int is_upper, t_special_flags *flags)
 	ft_strrev(res);
 	len += ft_strlen(res);
 	print_zeros(&len, flags);
-	ft_printstr(res);
+	ft_putstr_fd(res, 1);
+	print_blanks(&len, flags);
 	return (len);
 }
 
@@ -98,7 +108,10 @@ int	ft_printunsigned(unsigned int n, t_special_flags *flags)
 	if (flags->signal)
 		len += write(1, "+", 1);
 	print_zeros(&len, flags);
-	ft_printstr(s);
+	if (flags->zeros >= len)
+		len = ft_printstr(s, flags) + flags->zeros - ft_strlen(s);
+	else
+		len = ft_printstr(s, flags);
 	free(s);
 	return (len);
 }

@@ -32,8 +32,11 @@ static void	ft_parse_right(t_special_flags **flags, char **s_ptr, int *i)
 	j = 0;
 	s = *s_ptr;
 	(*flags)->right = 0;
-	if (ft_strncmp(*s_ptr, "-", 1) == 0)
+	if (ft_strncmp(*s_ptr, "-", 1) == 0
+		|| (ft_isdigit(*s_ptr[j]) && *s_ptr[j] != '0'))
 	{
+		if (ft_isdigit(*s_ptr[j]) && *s_ptr[j] != '0')
+			(*flags)->right = ((*flags)->right * 10) + s[j] - '0';
 		j++;
 		while (s[j] >= '0' && s[j] <= '9')
 		{

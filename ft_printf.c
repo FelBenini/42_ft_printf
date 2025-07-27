@@ -22,8 +22,8 @@ static int	ft_printptr(unsigned long long p, t_special_flags *flags)
 		len += write(1, "(nil)", 5);
 		return (len);
 	}
-	len += write(1, "0x", 2);
-	len += ft_printhex(p, 0, flags);
+	write(1, "0x", 2);
+	len += ft_printhex(p, 0, flags, 2);
 	return (len);
 }
 
@@ -33,17 +33,17 @@ static void	printf_options(char *s, int *len, va_list args, int *i)
 
 	flags = ft_parse_special_flags(&s, i);
 	if (ft_strncmp(s, "c", 1) == 0)
-		*len += ft_printchar(va_arg(args, int));
+		*len += ft_printchar(va_arg(args, int), flags);
 	else if (ft_strncmp(s, "%", 1) == 0)
-		*len += ft_printchar('%');
+		*len += ft_printchar('%', flags);
 	else if (ft_strncmp(s, "s", 1) == 0)
-		*len += ft_printstr(va_arg(args, char *));
+		*len += ft_printstr(va_arg(args, char *), flags);
 	else if (ft_strncmp(s, "d", 1) == 0 || ft_strncmp(s, "i", 1) == 0)
 		*len += ft_printnbr(va_arg(args, int), flags);
 	else if (ft_strncmp(s, "x", 1) == 0)
-		*len += ft_printhex(va_arg(args, unsigned int), 0, flags);
+		*len += ft_printhex(va_arg(args, unsigned int), 0, flags, 0);
 	else if (ft_strncmp(s, "X", 1) == 0)
-		*len += ft_printhex(va_arg(args, unsigned int), 1, flags);
+		*len += ft_printhex(va_arg(args, unsigned int), 1, flags, 0);
 	else if (ft_strncmp(s, "p", 1) == 0)
 		*len += ft_printptr(va_arg(args, unsigned long long), flags);
 	else if (ft_strncmp(s, "u", 1) == 0)
