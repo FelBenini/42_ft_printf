@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 11:17:24 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/26 19:15:03 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:19:42 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ft_printnbr(int n, t_special_flags *flags)
 	len += ft_strlen(s);
 	print_zeros(&len, flags);
 	ft_printstr(s);
+	print_blanks(&len, flags);
 	free(s);
 	return (len);
 }

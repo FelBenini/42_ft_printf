@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:30:47 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/07/26 19:14:29 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/07/26 20:58:33 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,28 @@ static void	ft_parse_signal(t_special_flags **flags, char **s_ptr, int *i)
 		(*flags)->signal = 1;
 		*i = *i + 1;
 		*s_ptr += 1;
+	}
+}
+
+static void	ft_parse_right(t_special_flags **flags, char **s_ptr, int *i)
+{
+	int		j;
+	char	*s;
+
+	j = 0;
+	s = *s_ptr;
+	(*flags)->right = 0;
+	if (ft_strncmp(*s_ptr, "-", 1) == 0)
+	{
+		j++;
+		while (s[j] >= '0' && s[j] <= '9')
+		{
+			(*flags)->right = ((*flags)->right * 10) + s[j] - '0';
+			j++;
+			*i = *i + 1;
+		}
+		*i = *i + 1;
+		*s_ptr += j;
 	}
 }
 
@@ -44,6 +66,7 @@ t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i)
 			*i = *i + 1;
 		}
 	}
+	ft_parse_right(&flags, s_ptr, i);
 	*s_ptr += j;
 	return (flags);
 }
