@@ -63,28 +63,35 @@ static void	ft_parse_sharp(t_special_flags **flags, char **s_ptr, int *i)
 	}
 }
 
+static void	ft_parse_zeros(t_special_flags **flags, char **s_ptr, int *i)
+{
+	char	*s;
+	int		j;
+
+	s = *s_ptr;
+	j = 0;
+	(*flags)->dot = 0;
+	if (ft_strncmp(s, "0", 1) == 0 || ft_strncmp(s, ".", 1) == 0)
+	{
+		if (ft_strncmp(s, ".", 1) == 0)
+			(*flags)->dot = 1;
+		j++;
+		while (s[j] >= '0' && s[j] <= '9')
+			(*flags)->zeros = ((*flags)->zeros * 10) + s[j++] - '0';
+		*i = *i + j;
+		*s_ptr += j;
+	}
+}
+
 t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i)
 {
 	t_special_flags	*flags;
-	int				j;
-	char			*s;
 
-	s = *s_ptr;
 	flags = (t_special_flags *)malloc(sizeof(t_special_flags) * 1);
-	j = 0;
 	flags->zeros = 0;
 	ft_parse_signal(&flags, s_ptr, i);
 	ft_parse_sharp(&flags, s_ptr, i);
-	s = *s_ptr;
-	if (ft_strncmp(s, "0", 1) == 0)
-	{
-		while (s[j] >= '0' && s[j] <= '9')
-		{
-			flags->zeros = (flags->zeros * 10) + s[j++] - '0';
-			*i = *i + 1;
-		}
-	}
+	ft_parse_zeros(&flags, s_ptr, i);
 	ft_parse_right(&flags, s_ptr, i);
-	*s_ptr += j;
 	return (flags);
 }

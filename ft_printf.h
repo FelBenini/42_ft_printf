@@ -22,6 +22,7 @@ typedef struct s_special_flags
 	int	signal;
 	int	right;
 	int	sharp;
+	int	dot;
 }	t_special_flags;
 
 int				ft_printf(const char *s, ...);
@@ -32,7 +33,7 @@ int				ft_printhex(unsigned long long n, int is_upper,
 					t_special_flags *flags, int len);
 int				ft_printunsigned(unsigned int n, t_special_flags *flags);
 t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i);
-void			print_zeros(int	*len, t_special_flags *flags);
+int				print_zeros(int *len, t_special_flags *flags, int issig);
 void			print_blanks(int *len, t_special_flags *flags);
 void			print_sharp(int *len, t_special_flags *flags, int is_upper);
 

@@ -12,13 +12,21 @@
 
 #include "ft_printf.h"
 
-void	print_zeros(int *len, t_special_flags *flags)
+int	print_zeros(int *len, t_special_flags *flags, int issig)
 {
-	if (flags->zeros && *len < flags->zeros)
+	int	zeros_printed;
+	int	dot_printed;
+
+	zeros_printed = 0;
+	dot_printed = 0;
+	if (flags->zeros)
 	{
-		while (*len < flags->zeros)
-			*len += write(1, "0", 1);
+		if (flags->dot && *len <= flags->zeros && issig)
+			dot_printed = write(1, "0", 1);
+		while (zeros_printed + *len < flags->zeros)
+			zeros_printed += write(1, "0", 1);
 	}
+	return (zeros_printed + dot_printed);
 }
 
 void	print_blanks(int *len, t_special_flags *flags)

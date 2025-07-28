@@ -62,13 +62,10 @@ int	ft_printnbr(int n, t_special_flags *flags)
 		issig = write(1, "+", 1);
 	s = ft_utoa(nb);
 	len += ft_strlen(s) + issig;
-	print_zeros(&len, flags);
-	if (flags->zeros >= len)
-		len = ft_printstr(s, flags) + flags->zeros - ft_strlen(s);
-	else
-		len = ft_printstr(s, flags) + issig;
+	len = print_zeros(&len, flags, issig);
+	len += ft_printstr(s, flags);
 	free(s);
-	return (len);
+	return (len + issig);
 }
 
 int	ft_printhex(unsigned long long n, int is_upper,
@@ -94,7 +91,7 @@ int	ft_printhex(unsigned long long n, int is_upper,
 	res[i] = '\0';
 	ft_strrev(res);
 	len += ft_strlen(res);
-	print_zeros(&len, flags);
+	len += print_zeros(&len, flags, 0);
 	ft_putstr_fd(res, 1);
 	print_blanks(&len, flags);
 	return (len);
@@ -111,11 +108,8 @@ int	ft_printunsigned(unsigned int n, t_special_flags *flags)
 	issig = 0;
 	if (flags->signal)
 		issig = write(1, "+", 1);
-	print_zeros(&len, flags);
-	if (flags->zeros >= len)
-		len = ft_printstr(s, flags) + flags->zeros - ft_strlen(s);
-	else
-		len = ft_printstr(s, flags);
+	len = print_zeros(&len, flags, issig);
+	len += ft_printstr(s, flags);
 	free(s);
 	return (len + issig);
 }
