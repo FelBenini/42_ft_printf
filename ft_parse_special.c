@@ -89,9 +89,17 @@ t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i)
 
 	flags = (t_special_flags *)malloc(sizeof(t_special_flags) * 1);
 	flags->zeros = 0;
+	flags->space = 0;
+	if (*s_ptr[0] == ' ')
+	{
+		flags->space = 1;
+		*i = *i + 1;
+		*s_ptr += 1;
+	}
 	ft_parse_signal(&flags, s_ptr, i);
 	ft_parse_sharp(&flags, s_ptr, i);
 	ft_parse_zeros(&flags, s_ptr, i);
 	ft_parse_right(&flags, s_ptr, i);
+	flags->flag = *s_ptr[0];
 	return (flags);
 }

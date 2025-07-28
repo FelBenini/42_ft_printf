@@ -16,7 +16,11 @@
 int	ft_printstr(char *str, t_special_flags *flags)
 {
 	int	i;
+	int	limit;
 
+	limit = 0;
+	if (flags->dot && flags->flag == 's')
+		limit = flags->zeros;
 	if (str == NULL)
 	{
 		write(1, "(null)", 6);
@@ -25,6 +29,8 @@ int	ft_printstr(char *str, t_special_flags *flags)
 	i = 0;
 	while (str[i])
 	{
+		if (flags->flag == 's' && i >= limit && flags->dot)
+			break ;
 		write(1, &str[i], 1);
 		i++;
 	}
@@ -60,6 +66,8 @@ int	ft_printnbr(int n, t_special_flags *flags)
 	}
 	if (flags->signal && n >= 0)
 		issig = write(1, "+", 1);
+	if (!issig && flags->space)
+		issig = write(1, " ", 1);
 	s = ft_utoa(nb);
 	len += ft_strlen(s) + issig;
 	len = print_zeros(&len, flags, issig);

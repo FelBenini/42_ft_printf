@@ -23,6 +23,8 @@ typedef struct s_special_flags
 	int	right;
 	int	sharp;
 	int	dot;
+	int	space;
+	int	flag;
 }	t_special_flags;
 
 int				ft_printf(const char *s, ...);
