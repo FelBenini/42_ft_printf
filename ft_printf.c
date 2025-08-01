@@ -32,22 +32,26 @@ static void	printf_options(char *s, int *len, va_list args, int *i)
 	t_special_flags	*flags;
 
 	flags = ft_parse_special_flags(&s, i);
-	if (ft_strncmp(s, "c", 1) == 0)
+	if (flags->flag == 'c')
 		*len += ft_printchar(va_arg(args, int), flags);
-	else if (ft_strncmp(s, "%", 1) == 0)
+	else if (flags->flag == '%' || !ft_strchr("%csdixXpu", flags->flag))
 		*len += ft_printchar('%', flags);
-	else if (ft_strncmp(s, "s", 1) == 0)
+	else if (flags->flag == 's')
 		*len += ft_printstr(va_arg(args, char *), flags);
-	else if (ft_strncmp(s, "d", 1) == 0 || ft_strncmp(s, "i", 1) == 0)
+	else if (flags->flag == 'd' || flags->flag == 'i')
 		*len += ft_printnbr(va_arg(args, int), flags);
-	else if (ft_strncmp(s, "x", 1) == 0)
+	else if (flags->flag == 'x')
 		*len += ft_printhex(va_arg(args, unsigned int), 0, flags, 0);
-	else if (ft_strncmp(s, "X", 1) == 0)
+	else if (flags->flag == 'X')
 		*len += ft_printhex(va_arg(args, unsigned int), 1, flags, 0);
-	else if (ft_strncmp(s, "p", 1) == 0)
+	else if (flags->flag == 'p')
 		*len += ft_printptr(va_arg(args, unsigned long long), flags);
-	else if (ft_strncmp(s, "u", 1) == 0)
+	else if (flags->flag == 'u')
 		*len += ft_printunsigned(va_arg(args, unsigned int), flags);
+	if (!ft_strchr("%csdixXpu", flags->flag))
+		*i = *i + 1;
+	else
+		*i = *i + 2;
 	free(flags);
 }
 
@@ -63,10 +67,7 @@ int	ft_printf(const char *s, ...)
 	while (s[i])
 	{
 		if (s[i] == '%')
-		{
 			printf_options((char *)s + i + 1, &len, args, &i);
-			i += 2;
-		}
 		else
 		{
 			ft_putchar_fd(s[i], 1);
