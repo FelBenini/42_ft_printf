@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 17:19:34 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/07 12:22:55 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/08/07 16:02:46 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,22 @@ static void	insert_space(t_special_flags *flags, char *str)
 static int	get_len(t_special_flags *flags, char *str)
 {
 	int	len;
+	int	width;
 
-	len = 6;
+	len = 0;
+	width = 0;
 	if (str)
 		len = ft_strlen(str);
 	if (flags->dot)
-		len = flags->zeros + flags->space + flags->right;
-	if (flags->space > len)
-		len = flags->space - flags->zeros;
+	{
+		if (flags->zeros < len)
+			len = flags->zeros;
+	}
 	if (flags->right > len)
-		len = flags->right - flags->zeros;
-	if ((flags->dot && flags->space) || (flags->dot && flags->right))
-		len -= flags->zeros;
-	return (len);
+		width = flags->right - len;
+	if (flags->space > len)
+		width = flags->space - len;
+	return (len + width);
 }
 
 static void	fill_string(t_special_flags *flags, char *src, char *res, int len)

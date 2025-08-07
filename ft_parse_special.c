@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 15:30:47 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/06 16:53:28 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/08/07 17:39:24 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static void	ft_parse_zeros(t_special_flags **flags, char **s_ptr, int *i)
 		*s_ptr += j;
 	}
 	if (is_zero != 0)
-		(*flags)->space = is_zero - zeros;
+		(*flags)->space = is_zero;
 	if ((*flags)->space < 0)
 		(*flags)->space = 0;
 	(*flags)->zeros = zeros;
