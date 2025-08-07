@@ -12,38 +12,35 @@
 
 #include "ft_printf.h"
 
-static int	get_len(t_special_flags **flags, char *src)
+static int	get_len(t_special_flags *flags, char *src)
 {
 	int	len;
-	int	s_len;
+	int	width;
 
-	s_len = ft_strlen(src);
-	len = s_len;
-	if ((*flags)->zeros + (*flags)->dot > len)
-		len = (*flags)->zeros;
-	if ((*flags)->dot && (*flags)->signal)
-		len += 1;
-	if ((*flags)->zeros && (*flags)->signal)
-		len -= 1;
-	if ((*flags)->space > len + (*flags)->signal)
+	len = 0;
+	width = 0;
+	len = ft_strlen(src);
+	if (flags->zeros + flags->dot > len)
 	{
-		len = (*flags)->space - (*flags)->signal;
-		(*flags)->space = len - (*flags)->zeros;
-		(*flags)->zeros = len;
+		len = flags->zeros;
+		if (flags->dot && flags->sharp)
+			len += 2;
 	}
-	if (len < s_len + 2 && (*flags)->sharp)
-		len += 2;
-	return (len + (*flags)->signal);
+	if (flags->space > len)
+		width = flags->space - len;
+	if (flags->sharp)
+		width += 2;
+	return (len + width);
 }
 
-static void	insert_space(t_special_flags *flags, char *res)
+static void	insert_zeros(char *res, int len)
 {
 	int	i;
 
 	i = 0;
-	while (i < flags->space)
+	while (i < len)
 	{
-		res[i] = ' ';
+		res[i] = '0';
 		i++;
 	}
 }
@@ -54,10 +51,11 @@ static void	fill_hex_number(t_special_flags *flags, char *src, char *res)
 	int		src_len;
 	int		offset;
 
-	insert_space(flags, res);
-	offset = 0;
+	offset = ft_strlen(res) - ft_strlen(src);
+	if (offset < 0)
+		offset = 0;
 	if (flags->sharp)
-		offset = 2;
+		offset += 2;
 	if (flags->sharp && flags->flag == 'x')
 		ft_memcpy(res, "0x", 2);
 	if (flags->sharp && flags->flag == 'X')
@@ -91,12 +89,15 @@ int	ft_printhex(unsigned long long n, int is_upper, t_special_flags *flags)
 	}
 	src[len] = '\0';
 	ft_strrev(src);
-	len = get_len(&flags, src);
+	len = get_len(flags, src);
 	res = ft_calloc(len + 1, sizeof(char));
 	if (!res)
 		return (0);
+	if (flags->zeros > (int)ft_strlen(src))
+		insert_zeros(res, len);
 	fill_hex_number(flags, src, res);
-	ft_putstr_fd(res, 1);
+	flags->dot = 0;
+	len = ft_printstr(flags, res);
 	free(res);
 	return (len);
 }
