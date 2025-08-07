@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 16:19:43 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/06 21:15:43 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/08/07 12:39:46 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ static void	printf_options(char *s, va_list args, int *i, int *len)
 		*len += ft_printstr(flags, va_arg(args, char *));
 	if (flags->flag == 'd' || flags->flag == 'i')
 		*len += ft_printnbr(flags, va_arg(args, int));
+	if (flags->flag == 'x')
+		*len += ft_printhex(va_arg(args, unsigned int), 0, flags);
+	if (flags->flag == 'X')
+		*len += ft_printhex(va_arg(args, unsigned int), 1, flags);
 	*i = *i + 2;
 	free(flags);
 }
