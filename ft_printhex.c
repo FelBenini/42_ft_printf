@@ -6,7 +6,7 @@
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/07 12:11:12 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/07 14:02:22 by fbenini-         ###   ########.fr       */
+/*   Updated: 2025/08/08 14:39:43 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,22 +99,13 @@ static void	fill_hex_number(t_special_flags *flags, char *src, char *res)
 
 int	ft_printhex(unsigned long long n, int is_upper, t_special_flags *flags)
 {
-	const char	*digits = "0123456789abcdef";
-	char		src[20];
+	char		*src;
 	int			len;
 	char		*res;
 
-	if (is_upper)
-		digits = "0123456789ABCDEF";
-	len = 0;
 	if (n == 0)
 		return (ft_printnbr(flags, 0));
-	while (n > 0)
-	{
-		src[len++] = digits[n % 16];
-		n /= 16;
-	}
-	src[len] = '\0';
+	src = convert_to_hex(n, is_upper);
 	len = get_len(flags, src);
 	res = ft_calloc(len + 1, sizeof(char));
 	if (!res)
@@ -125,6 +116,7 @@ int	ft_printhex(unsigned long long n, int is_upper, t_special_flags *flags)
 	fill_hex_number(flags, src, res);
 	flags->dot = 0;
 	len = ft_printstr(flags, res);
+	free(src);
 	free(res);
 	return (len);
 }

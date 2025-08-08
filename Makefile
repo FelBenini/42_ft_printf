@@ -6,13 +6,13 @@
 #    By: fbenini- <your@mail.com>                   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:03:00 by fbenini-          #+#    #+#              #
-#    Updated: 2025/08/07 16:34:52 by fbenini-         ###   ########.fr        #
+#    Updated: 2025/08/08 14:37:46 by fbenini-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRCS = ft_printf.c ft_printchar.c ft_printnbr.c ft_printstr.c ft_printhex.c ft_printptr.c ft_parse_special.c ft_printunsigned.c
+SRCS = ft_printf.c ft_printchar.c ft_printnbr.c ft_printstr.c ft_printhex.c ft_printptr.c ft_parse_special.c ft_printunsigned.c ft_hex_util.c
 
 LIBFT_DIR = ./libft
 
