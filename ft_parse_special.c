@@ -28,6 +28,8 @@ static void	ft_parse_space(t_special_flags **flags, char **s_ptr, int *i)
 	}
 	if (ft_isdigit(s[j]) && s[j] != '0')
 	{
+		(*flags)->arithmetic = 1;
+		(*flags)->space = 0;
 		while (ft_isdigit(s[j]))
 		{
 			(*flags)->space = ((*flags)->space * 10) + s[j] - '0';
@@ -84,7 +86,6 @@ static void	ft_parse_zeros(t_special_flags **flags, char **s_ptr, int *i)
 	j = 0;
 	zeros = 0;
 	is_zero = (*flags)->zeros;
-	(*flags)->dot = 0;
 	if (ft_strncmp(s, "0", 1) == 0 || ft_strncmp(s, ".", 1) == 0)
 	{
 		if (ft_strncmp(s, ".", 1) == 0)
@@ -113,6 +114,7 @@ t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i)
 	flags->space = 0;
 	flags->right = 0;
 	flags->dot = 0;
+	flags->arithmetic = 0;
 	while (ft_strchr("0.-+ #", *s_ptr[0]) || ft_isdigit(*s_ptr[0]))
 	{
 		if (ft_strncmp(*s_ptr, "+", 1) == 0)

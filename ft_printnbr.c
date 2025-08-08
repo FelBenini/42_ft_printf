@@ -29,6 +29,8 @@ static int	get_len(t_special_flags *flags, unsigned int nb)
 	}
 	if (flags->space > len)
 		width = flags->space - len;
+	if (flags->space == 1 && !flags->arithmetic && !flags->signal)
+		width += 1;
 	return (len + width);
 }
 

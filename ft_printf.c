@@ -60,3 +60,10 @@ int	ft_printf(const char *s, ...)
 	va_end(args);
 	return (len);
 }
+   //
+   // int	main(void)
+   // {
+   // 	int	og = printf("og:%8.5x\n", 34);
+   // int	ft = ft_printf("ft:%8.5x\n", 34);
+   // printf("\nft:%d og:%d\n", ft, og);
+   // }

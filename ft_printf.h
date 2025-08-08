@@ -18,13 +18,14 @@
 
 typedef struct s_special_flags
 {
-	int		zeros;
-	int		signal;
-	int		right;
-	int		sharp;
-	int		dot;
-	int		space;
-	int		flag;
+	int	zeros;
+	int	signal;
+	int	right;
+	int	sharp;
+	int	dot;
+	int	space;
+	int	flag;
+	int	arithmetic;
 }	t_special_flags;
 
 int				ft_printf(const char *s, ...);

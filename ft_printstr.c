@@ -16,6 +16,8 @@ static void	insert_space(t_special_flags *flags, char *str)
 {
 	if (flags->right)
 		ft_memset(str, ' ', flags->right);
+	if (!flags->arithmetic && flags->flag == 's')
+		return ;
 	if (flags->space)
 		ft_memset(str, ' ', flags->space);
 }
@@ -36,7 +38,7 @@ static int	get_len(t_special_flags *flags, char *str)
 	}
 	if (flags->right > len)
 		width = flags->right - len;
-	if (flags->space > len)
+	if (flags->space > len && flags->arithmetic)
 		width = flags->space - len;
 	return (len + width);
 }
