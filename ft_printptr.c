@@ -17,6 +17,9 @@ int	ft_printptr(t_special_flags *flags, unsigned long long n)
 	flags->sharp = 1;
 	flags->flag = 'x';
 	if (!n)
+	{
+		flags->dot = 0;
 		return (ft_printstr(flags, "(nil)"));
+	}
 	return (ft_printhex(n, 0, flags));
 }

@@ -17,7 +17,7 @@ static int	ulen(unsigned int n)
 	int	res;
 
 	res = 0;
-	if (n <= 0)
+	if (n == 0)
 		res++;
 	while (n != 0)
 	{
@@ -41,8 +41,6 @@ char	*ft_utoa(unsigned int n)
 	while (len > 0)
 	{
 		ch = (n % 10) + '0';
-		if (n < 0)
-			ch = -(n % 10) + '0';
 		res[--len] = ch;
 		n /= 10;
 	}
