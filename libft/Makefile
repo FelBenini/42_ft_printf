@@ -6,7 +6,7 @@
 #    By: fbenini- <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/17 19:14:42 by fbenini-          #+#    #+#              #
-#    Updated: 2025/07/26 18:24:40 by fbenini-         ###   ########.fr        #
+#    Updated: 2025/08/08 17:46:18 by fbenini-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,25 +24,25 @@ ft_calloc.c ft_isascii.c ft_itoa.c ft_memcmp.c ft_memset.c ft_putnbr_fd.c ft_str
 
 BONUS = ft_lstadd_back_bonus.c ft_lstadd_front_bonus.c ft_lstclear_bonus.c ft_lstdelone_bonus.c ft_lstlast_bonus.c ft_lstnew_bonus.c ft_lstsize_bonus.c ft_lstiter_bonus.c ft_lstmap_bonus.c
 
-HDRS = libft.h
+HEADER = libft.h
 
-OBJS = $(SRCS:.c=.o)
+OBJECTS = $(SRCS:.c=.o)
 
 BONUS_OBJS = $(BONUS:.c=.o)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -I.$(HDRS) -c $< -o $@
+	$(CC) $(CFLAGS) -I.$(HEADER) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJECTS)
+	$(AR) $(NAME) $(OBJECTS)
 
 all: $(NAME)
 
 bonus:
-	@$(MAKE) OBJS="$(OBJS) $(BONUS_OBJS)"
+	@$(MAKE) OBJECTS="$(OBJECTS) $(BONUS_OBJS)"
 
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	$(RM) $(OBJECTS) $(BONUS_OBJS)
 
 fclean: clean
 	$(RM) $(NAME)

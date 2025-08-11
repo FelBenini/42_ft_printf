@@ -5,35 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/08 16:57:27 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/08 17:27:11 by fbenini-         ###   ########.fr       */
+/*   Created: 2025/08/06 16:19:43 by fbenini-          #+#    #+#             */
+/*   Updated: 2025/08/07 17:40:14 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
 static void	printf_options(char *s, va_list args, int *i, int *len)
 {
-	if (s[0] == 'c')
-	{
-		ft_putchar_fd(va_arg(args, int), 1);
-		*len += 1;
-	}
-	if (s[0] == '%')
-		*len += write(1, "%", 1);
-	if (s[0] == 's')
-		*len += ft_printstr(va_arg(args, char *));
-	if (s[0] == 'd' || s[0] == 'i')
-		*len += ft_printnbr(va_arg(args, int));
-	if (s[0] == 'x')
-		*len += ft_printhex(va_arg(args, unsigned int), 0);
-	if (s[0] == 'X')
-		*len += ft_printhex(va_arg(args, unsigned int), 1);
-	if (s[0] == 'p')
-		*len += ft_printptr(va_arg(args, unsigned long long));
-	if (s[0] == 'u')
-		*len += ft_printunsigned(va_arg(args, unsigned int));
+	t_special_flags	*flags;
+
+	flags = ft_parse_special_flags(&s, i);
+	if (flags->flag == 'c')
+		*len += ft_printchar(flags, va_arg(args, int));
+	if (flags->flag == '%')
+		*len += ft_printchar(flags, '%');
+	if (flags->flag == 's')
+		*len += ft_printstr(flags, va_arg(args, char *));
+	if (flags->flag == 'd' || flags->flag == 'i')
+		*len += ft_printnbr(flags, va_arg(args, int));
+	if (flags->flag == 'x')
+		*len += ft_printhex(va_arg(args, unsigned int), 0, flags);
+	if (flags->flag == 'X')
+		*len += ft_printhex(va_arg(args, unsigned int), 1, flags);
+	if (flags->flag == 'p')
+		*len += ft_printptr(flags, va_arg(args, unsigned long long));
+	if (flags->flag == 'u')
+		*len += ft_printunsigned(va_arg(args, unsigned int), flags);
 	*i = *i + 2;
+	free(flags);
 }
 
 int	ft_printf(const char *s, ...)

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 #include "libft/libft.h"
 
 static void	ft_parse_space(t_special_flags **flags, char **s_ptr, int *i)

@@ -1,25 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printptr.c                                      :+:      :+:    :+:   */
+/*   ft_hex_util.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/07 12:40:29 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/07 14:03:55 by fbenini-         ###   ########.fr       */
+/*   Created: 2025/08/08 14:32:04 by fbenini-          #+#    #+#             */
+/*   Updated: 2025/08/08 14:41:06 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_printptr(t_special_flags *flags, unsigned long long n)
+char	*convert_to_hex(unsigned long long n, int is_upper)
 {
-	flags->sharp = 1;
-	flags->flag = 'x';
-	if (!n)
+	const char	*digits = "0123456789abcdef";
+	char		*src;
+	int			i;
+
+	src = ft_calloc(20, sizeof(char));
+	if (!src)
+		return (NULL);
+	if (is_upper)
+		digits = "0123456789ABCDEF";
+	i = 0;
+	while (n > 0)
 	{
-		flags->dot = 0;
-		return (ft_printstr(flags, "(nil)"));
+		src[i++] = digits[n % 16];
+		n /= 16;
 	}
-	return (ft_printhex(n, 0, flags));
+	src[i] = '\0';
+	return (src);
 }

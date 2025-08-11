@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbenini- <your@mail.com>                   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/24 16:48:40 by fbenini-          #+#    #+#             */
-/*   Updated: 2025/08/08 14:41:36 by fbenini-         ###   ########.fr       */
+/*   Created: 2025/08/08 16:55:22 by fbenini-          #+#    #+#             */
+/*   Updated: 2025/08/08 16:56:27 by fbenini-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,28 +16,12 @@
 # include "libft/libft.h"
 # include <stdarg.h>
 
-typedef struct s_special_flags
-{
-	int	zeros;
-	int	signal;
-	int	right;
-	int	sharp;
-	int	dot;
-	int	space;
-	int	flag;
-	int	arithmetic;
-}	t_special_flags;
-
 int				ft_printf(const char *s, ...);
-int				ft_printstr(t_special_flags *flags, char *str);
-int				ft_printchar(t_special_flags *flags, int c);
-int				ft_printnbr(t_special_flags *flags, int n);
-int				ft_printhex(unsigned long long n, int is_upper,
-					t_special_flags *flags);
-char			*convert_to_hex(unsigned long long n, int is_upper);
-int				ft_printptr(t_special_flags *flags, unsigned long long n);
-int				ft_printunsigned(unsigned int n, t_special_flags *flags);
-t_special_flags	*ft_parse_special_flags(char **s_ptr, int *i);
-int				get_total_len(t_special_flags *flags, int len);
+int				ft_printstr(char *str);
+int				ft_printchar(int c);
+int				ft_printnbr(int n);
+int				ft_printhex(unsigned long long n, int is_upper);
+int				ft_printptr(unsigned long long n);
+int				ft_printunsigned(unsigned int n);
 
 #endif
