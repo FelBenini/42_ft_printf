@@ -46,7 +46,7 @@ clean:
 
 fclean: clean
 	@$(MAKE) fclean -C $(LIBFT_DIR)
-	rm $(NAME)
+	rm -rf $(NAME)
 
 re: fclean $(NAME)
 
